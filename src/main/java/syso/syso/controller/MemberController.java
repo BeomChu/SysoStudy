@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import syso.syso.dto.SignupDto;
+import syso.syso.service.EmailService;
 import syso.syso.service.MemberService;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final EmailService emailService;
 
     @PostMapping("/new")
     public List<String> signUp(@Valid SignupDto signupDto, BindingResult bindingResult, Model model){
@@ -39,5 +41,12 @@ public class MemberController {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    @PostMapping("/emailCheck")
+    public String check(String email){
+        System.out.println(email);
+        String key = emailService.mailCheck(email);
+        return key;
     }
 }
