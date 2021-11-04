@@ -15,7 +15,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class EmailService {
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     public String mailCheck(String email){
         Random random = new Random(); //난수 생성

@@ -38,9 +38,10 @@ public class MemberController {
         try{
             memberService.회원가입(signupDto);
         } catch (Exception e){
+            err.add(e.getMessage());
             System.out.println(e.getMessage());
         }
-        return null;
+        return err;
     }
 
     @PostMapping("/emailCheck")
