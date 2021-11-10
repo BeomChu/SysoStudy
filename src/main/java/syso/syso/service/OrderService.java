@@ -29,6 +29,7 @@ public class OrderService {
         if(findItem.getStockNumber() < orderDto.getCnt()){
             throw new IllegalStateException("개수가 초과했습니다.");
         }
+
         Order order = new Order();
         order.setMember(member);
         orderRepository.save(order);
@@ -38,7 +39,16 @@ public class OrderService {
         orderItem.setItem(findItem);
         orderItem.setOrder(order);
         orderItem.setCount(orderDto.getCnt());
-        orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice());
+
+        if(orderDto.getPoint()>0){
+            if(orderDto.getPoint() > orderDto.getCnt() * findItem.getPrice()){
+                throw new IllegalStateException("포인트를 너무 많이 사용했습니다.");
+            }
+            orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice() - orderDto.getPoint());
+            member.setPoint(member.getPoint()-orderDto.getPoint());
+        }else {
+            orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice());
+        }
         orderItemRepository.save(orderItem);
 
         return orderItem.getId();
