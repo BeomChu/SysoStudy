@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import syso.syso.constant.OrderStatus;
 import syso.syso.dto.OrderDto;
 import syso.syso.entity.Item;
 import syso.syso.entity.Member;
@@ -15,6 +16,8 @@ import syso.syso.repository.OrderItemRepository;
 import syso.syso.repository.OrderRepository;
 
 import javax.persistence.EntityNotFoundException;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,13 +84,37 @@ class OrderServiceTest {
         // 아래 테스트는 10개를 사서 사용한 포인트가 구매할 가격보다 적은 경우
         orderDto.setCnt(10);
 
-        Long orderItemId = orderService.order(item.getItemId(), orderDto, member);
+        Long orderId = orderService.order(item.getItemId(), orderDto, member);
 
-        OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
 
-        assertEquals(orderItem.getOrderPrice(),6000);
         assertEquals(member.getPoint(),6000);
+    }
 
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void 주문취소테스트(){
+        Item item = new Item();
+        item.setItemName("테스트아이템");
+        item.setStockNumber(100);
+        item.setPrice(1000);
+
+        itemRepository.save(item);
+
+        Member member = new Member();
+        member.setPoint(10000);
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCnt(10);
+        orderDto.setPoint(4000);
+
+        Long orderId = orderService.order(item.getItemId(), orderDto, member);
+
+        orderService.orderCancel(orderId);
+
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+
+        assertEquals(order.getOrderStatus(), OrderStatus.CANCEL);
 
     }
 }

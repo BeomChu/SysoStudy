@@ -28,4 +28,10 @@ public class OrderController {
         orderService.order(itemId,orderDto,principalDetails.getMember());
         return "ok";
     }
+
+    @PostMapping("/order/{orderId}")
+    public String orderCancel(@PathVariable Long orderId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        orderService.orderCancel(orderId);
+        return null;
+    }
 }

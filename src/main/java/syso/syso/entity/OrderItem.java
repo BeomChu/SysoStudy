@@ -27,6 +27,4 @@ public class OrderItem {
     private int count;
 
     private int point;
-
-    private OrderStatus orderStatus;
 }

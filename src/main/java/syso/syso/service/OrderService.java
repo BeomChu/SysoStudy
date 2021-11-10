@@ -14,6 +14,8 @@ import syso.syso.repository.OrderItemRepository;
 import syso.syso.repository.OrderRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,8 @@ public class OrderService {
 
         Order order = new Order();
         order.setMember(member);
+        order.setOrderStatus(OrderStatus.ORDER);
+
         orderRepository.save(order);
 
         findItem.setStockNumber(findItem.getStockNumber()-orderDto.getCnt());
@@ -40,7 +44,11 @@ public class OrderService {
         orderItem.setItem(findItem);
         orderItem.setOrder(order);
         orderItem.setCount(orderDto.getCnt());
-        orderItem.setOrderStatus(OrderStatus.ORDER);
+
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(orderItem);
+
+        order.setOrderItems(orderItems);
 
         if(orderDto.getPoint()>0){
             if(orderDto.getPoint() > orderDto.getCnt() * findItem.getPrice()){
@@ -54,6 +62,21 @@ public class OrderService {
         }
         orderItemRepository.save(orderItem);
 
-        return orderItem.getId();
+        return order.getId();
+    }
+
+    public Long orderCancel(Long orderId){
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        List<OrderItem> orderItems = order.getOrderItems();
+        Member member = order.getMember();
+        order.setOrderStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            if(orderItem.getPoint() != 0){
+                member.setPoint(member.getPoint() + orderItem.getPoint());
+            }
+            Item item = orderItem.getItem();
+            item.setStockNumber(item.getStockNumber() + orderItem.getCount());
+        }
+        return order.getId();
     }
 }
