@@ -71,4 +71,5 @@ public class MemberController {
         return principalDetails.getUserId();
     }
 
+
 }
