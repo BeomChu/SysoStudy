@@ -2,6 +2,7 @@ package syso.syso.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import syso.syso.constant.OrderStatus;
 
 import javax.persistence.*;
 
@@ -24,4 +25,8 @@ public class OrderItem {
     private int orderPrice;
 
     private int count;
+
+    private int point;
+
+    private OrderStatus orderStatus;
 }

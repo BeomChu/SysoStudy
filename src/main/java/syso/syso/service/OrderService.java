@@ -3,6 +3,7 @@ package syso.syso.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import syso.syso.constant.OrderStatus;
 import syso.syso.dto.OrderDto;
 import syso.syso.entity.Item;
 import syso.syso.entity.Member;
@@ -39,12 +40,14 @@ public class OrderService {
         orderItem.setItem(findItem);
         orderItem.setOrder(order);
         orderItem.setCount(orderDto.getCnt());
+        orderItem.setOrderStatus(OrderStatus.ORDER);
 
         if(orderDto.getPoint()>0){
             if(orderDto.getPoint() > orderDto.getCnt() * findItem.getPrice()){
                 throw new IllegalStateException("포인트를 너무 많이 사용했습니다.");
             }
             orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice() - orderDto.getPoint());
+            orderItem.setPoint(orderDto.getPoint());
             member.setPoint(member.getPoint()-orderDto.getPoint());
         }else {
             orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice());
