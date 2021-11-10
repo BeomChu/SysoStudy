@@ -20,6 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         http.csrf().disable();
+
+        http.formLogin()
+                .loginPage("/member/login")
+                .loginProcessingUrl("/member/login")
+                .defaultSuccessUrl("/suc")
+                .usernameParameter("userId")
+                .failureUrl("/member/login/error");
+
     }
 
 }
