@@ -1,6 +1,7 @@
 HELP.md
 .gradle
-build/
+build
+target
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -22,7 +23,10 @@ bin/
 *.iws
 *.iml
 *.ipr
+<<<<<<< HEAD
 
+=======
+>>>>>>> cdc17eaf12d27da5e15773f783f0d87db379a369
 
 ### NetBeans ###
 /nbproject/private/
@@ -33,3 +37,5 @@ bin/
 
 ### VS Code ###
 .vscode/
+
+*.yml
