@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 @Data
 public class SignupDto {
 
-    @Size(min = 2,max = 20)
+    @Size(min = 2,max = 20) //두글자 이상 20글자 이하
     private String userId;
 
     @NotBlank(message = "비밀번호는 꼭 넣어주세요~~")

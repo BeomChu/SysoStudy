@@ -46,6 +46,16 @@ public class MemberController {
             System.out.println(e.getMessage());
         }
         return err;
+<<<<<<< HEAD
+    }
+
+    @PostMapping("/emailCheck")
+    public String check(String email){
+        System.out.println(email);
+        String key = emailService.mailCheck(email);
+        return key;
+=======
+>>>>>>> cdc17eaf12d27da5e15773f783f0d87db379a369
     }
 
     @PostMapping("/emailCheck")

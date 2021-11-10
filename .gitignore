@@ -1,7 +1,10 @@
 HELP.md
 .gradle
+<<<<<<< HEAD
+=======
 build
 target
+>>>>>>> cdc17eaf12d27da5e15773f783f0d87db379a369
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -24,9 +27,12 @@ bin/
 *.iml
 *.ipr
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> cdc17eaf12d27da5e15773f783f0d87db379a369
+=======
+>>>>>>> d51cd231e8d46247303844b9e456b315e4c3c570
 
 ### NetBeans ###
 /nbproject/private/

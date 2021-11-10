@@ -29,4 +29,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/member/login/error");
 
     }
+
 }
