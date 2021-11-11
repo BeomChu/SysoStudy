@@ -4,9 +4,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import syso.syso.constant.OrderStatus;
 import syso.syso.dto.OrderDto;
+import syso.syso.dto.OrderHisDto;
 import syso.syso.entity.Item;
 import syso.syso.entity.Member;
 import syso.syso.entity.Order;
@@ -116,5 +119,41 @@ class OrderServiceTest {
 
         assertEquals(order.getOrderStatus(), OrderStatus.CANCEL);
 
+    }
+
+    @Test
+    @DisplayName("주문 내역 조회하기")
+    public void 주문내역조회(){
+
+        PageRequest pageable = PageRequest.of(0,3);
+
+        Item item = new Item();
+        item.setItemName("테스트아이템");
+        item.setStockNumber(100);
+        item.setPrice(1000);
+
+        itemRepository.save(item);
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCnt(10);
+
+        Member member = new Member();
+        member.setUserId("aaaa");
+        member.setAddress("aaa");
+        member.setPassword("aaa");
+        member.setNicName("aaa");
+        member.setEmail("aaa");
+        member.setPoint(10000);
+
+        orderService.order(item.getItemId(), orderDto, member);
+
+        for(int i = 0; i<3;i++){
+            orderService.order(item.getItemId(), orderDto, member);
+        }
+
+        Page<OrderHisDto> orderList = orderService.getOrderList(member, pageable);
+        long totalElements = orderList.getTotalElements();
+        assertEquals(totalElements,3);
+        System.out.println(orderList.getSize());
     }
 }
