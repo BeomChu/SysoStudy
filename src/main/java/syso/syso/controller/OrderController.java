@@ -3,6 +3,7 @@ package syso.syso.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class OrderController {
         return "ok";
     }
 
-    @PostMapping("/order/{orderId}")
+    @DeleteMapping("/order/{orderId}")
     public String orderCancel(@PathVariable Long orderId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         orderService.orderCancel(orderId);
         return null;
