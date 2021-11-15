@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #333333;
+  word-break: keep-all;
+}
+
+/*reset*/
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+input {
+  font-family: "Noto sans KR", sans-serif;
+  letter-spacing: -0.04em;
+  border: none;
+  outline: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+/* common */
+.section {
+  width: 100%;
+  padding: 80px;
+}
+
+.container {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 36px;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.title-arrow {
+  width: 30px;
+  height: 30px;
+  background-image: url;
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+}
+
+.image-hover {
+  display: block;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  transition: background-size 0.3s ease-in-out;
+}
+
+.image-hover:hover {
+  background-size: 102%;
+}
+
+.product-slide {
+  width: 100%;
+}
+
+.product-slide-wrap {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.product-box {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.product-button-direction {
+  width: 1100px;
+  position: relative;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.product-box,
+.recommend-items,
+.cheap-items,
+.md-items,
+.new-items,
+.popular-items,
+.offline-items,
+.recipe-items,
+.review-items {
+  display: flex;
+}
+
+.recommend-items li,
+.cheap-items li,
+.md-items li,
+.new-items li,
+.popular-items li,
+.must-items li,
+.offline-items li,
+.recipe-items li,
+.review-items li {
+  width: 250px;
+  margin: 0 14px;
+}
+
+.product-name {
+  margin: 8px 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.discount-rate {
+  color: #fa6938;
+}
+
+.regular-price {
+  display: block;
+  font-size: 14px;
+  color: #999999;
+  text-decoration: line-through;
+}
