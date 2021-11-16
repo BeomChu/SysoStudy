@@ -22,4 +22,6 @@ public class SignupDto {
 
     @NotBlank(message = "주소는 꼭 넣어주세요~~")
     private String address;
+
+    //상품상태
 }

@@ -2,13 +2,13 @@ package syso.syso.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import syso.syso.auth.PrincipalDetails;
 import syso.syso.dto.ItemDto;
+import syso.syso.entity.Item;
+import syso.syso.repository.ItemRepository;
 import syso.syso.service.ItemService;
 
 import javax.validation.Valid;
@@ -22,7 +22,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping("/newitem")
-    public List<String> newItem(@Valid ItemDto itemDto, BindingResult bindingResult, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public List<String> newItem(@Valid ItemDto itemDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         List<String> err=new ArrayList<>();
 
@@ -32,18 +32,30 @@ public class ItemController {
                 err.add(error.getDefaultMessage());
                 System.out.println(error.getDefaultMessage());
             }
-            return err;
+
+        }else {
+            itemService.상품등록(itemDto, principalDetails.getMember());
         }
 
-        try{
-            itemService.상품등록(itemDto,principalDetails.getMember());
-        }catch (Exception e){
-            err.add(e.getMessage());
-            System.out.println(e.getMessage());
-        }
+
         return err;
 
 
     }
 
+    @GetMapping("/checkitem/{itemId}")
+    public String checkItem(ItemDto itemDto,@PathVariable Long itemId){
+        String item=itemService.상품조회(itemId);
+
+        return item;
+    }
+
+    @PutMapping("/updateitem/{itemId}")
+    public String updateItem(@PathVariable Long itemId, @Valid ItemDto itemDto, BindingResult bindingResult,@AuthenticationPrincipal PrincipalDetails principalDetails){
+        itemService.상품수정(itemId,itemDto);
+
+
+        return "실행됨";
+
+    }
 }
