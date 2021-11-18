@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">
+    <link rel="stylesheet" href="./css/mykurly_delivery_popup.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./js/mykurly.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   
+</head>
+<body>
+
+    <div class="section_destination">
+        <div id="inputForm">
+            <form action="" method="post">
+                <div class="modify only_pc">
+                    <p class="tit_result">배송지를 선택해주세요.<br>              
+                        <span class="desc">매일 아침, 고객님의 제품을 문 앞까지 안전하게 보내드릴게요.</span>
+                    </p>
+                    <div class="field">
+                        <div class="address_search">
+                            <input id="addrMain" class="address" type="text" readonly="" name="user_address" placeholder="주소를 검색해주세요.">
+                            <!-- text창을 누르면 검색버튼이 눌리도록 함.-->
+                            <button type="button" id="juso" class="btn">
+                                <span class="ico"></span>검색<!-- 검색kakao api -->
+                            </button>
+                        </div>
+                        <input type="text" id="addrSub" name="user_detail_address" placeholder="나머지 주소를 입력해주세요">
+                    </div>
+                    <label class="label_default"><br>
+                        <input type="checkbox" id="isDefault" name="isDefault">
+                        <span class="ico"></span>기본 배송지로 저장</label>
+                        <!-- db에 반영해야할 요소로 보임.(기본배송지)-->
+                        <button type="submit" class="btn active">저장</button>
+                        <!-- 저장시 db에 반영됨. 기본배송지 체크 시 반영해야함.-->
+                        
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
