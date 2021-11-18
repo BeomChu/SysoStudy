@@ -6,16 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 import syso.syso.dto.CartDetailDto;
 import syso.syso.dto.CartDto;
 import syso.syso.dto.CartItemDto;
-import syso.syso.entity.Cart;
-import syso.syso.entity.CartItem;
-import syso.syso.entity.Item;
-import syso.syso.entity.Member;
+import syso.syso.entity.*;
 import syso.syso.handler.CustomException;
 import syso.syso.repository.CartItemRepository;
 import syso.syso.repository.CartRepository;
 import syso.syso.repository.ItemRepository;
 import syso.syso.repository.MemberRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +25,7 @@ public class CartService {
     private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final OrderService orderService;
 
 
     // 상품 상세페이지에서 아이템을 장바구니에 담을 수 있음
@@ -41,6 +40,8 @@ public class CartService {
             Cart cart1 = new Cart();
             cart1.setMember(member);
             cart = cart1;
+            List<CartItem> cartItems = new ArrayList<>();
+            cart.setCartItems(cartItems);
             cartRepository.save(cart);
         }
 
@@ -59,6 +60,9 @@ public class CartService {
             cartItem = cartItem1;
             cartItemRepository.save(cartItem);
         }
+        List<CartItem> cartItems = cart.getCartItems();
+        cartItems.add(cartItem);
+        cart.setCartItems(cartItems);
 
         return cart.getId();
     }
@@ -77,6 +81,34 @@ public class CartService {
         cartDto.setTotalPrice(totalPrice);
 
         return cartDto;
+    }
+
+    public Long orderCart(Long cartId, Member member,int point){
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> {
+            throw new CustomException("장바구니가 없습니다.");
+        });
+
+        List<CartItem> cartItems = cart.getCartItems();
+        orderService.orderCart(cartItems, member,point);
+
+        return cartId;
+    }
+
+    public Long cartDelete(Long cartId, Long itemId){
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> {
+            throw new CustomException("아이템이 없습니다.");
+        });
+
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> {
+            throw new CustomException("장바구니가 없습니다.");
+        });
+
+        CartItem cartItem = cartItemRepository.findByItem(item);
+        List<CartItem> cartItems = cart.getCartItems();
+        cartItems.remove(cartItem);
+        cartItemRepository.delete(cartItem);
+
+        return cartItem.getId();
     }
 
 }

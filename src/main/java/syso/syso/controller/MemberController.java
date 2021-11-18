@@ -72,5 +72,10 @@ public class MemberController {
         return principalDetails.getUserId();
     }
 
+    @GetMapping("/api/idCheck")
+    public String checkId(String userId){
+        memberService.checkDuplication(userId);
 
+        return "ok";
+    }
 }

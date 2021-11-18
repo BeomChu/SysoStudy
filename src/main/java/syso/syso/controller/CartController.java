@@ -38,4 +38,11 @@ public class CartController {
 
         return new ResponseEntity<>(new CMRespDto<>(1,"장바구니 물건",cart),HttpStatus.OK);
     }
+
+    @PostMapping("/cart/order/{cartId}")
+    public ResponseEntity<?> orderCart(@PathVariable Long cartId, @AuthenticationPrincipal PrincipalDetails principalDetails,int point){
+        Long orderCartId = cartService.orderCart(cartId, principalDetails.getMember(), point);
+
+        return new ResponseEntity<>(new CMRespDto<>(1,"장바구니 구매 성공",null),HttpStatus.OK);
+    }
 }

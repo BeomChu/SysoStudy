@@ -13,6 +13,7 @@ import syso.syso.constant.Grade;
 import syso.syso.constant.Role;
 import syso.syso.dto.SignupDto;
 import syso.syso.entity.Member;
+import syso.syso.handler.CustomException;
 import syso.syso.repository.MemberRepository;
 
 @Service
@@ -43,7 +44,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findByUserId(userId);
 
         if(member != null){
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+            throw new CustomException("이미 가입된 회원입니다.");
         }
     }
 

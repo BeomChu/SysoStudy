@@ -17,4 +17,6 @@ public class Cart {
     @OneToOne
     private Member member;
 
+    @OneToMany
+    private List<CartItem> cartItems;
 }

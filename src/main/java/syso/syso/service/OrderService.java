@@ -11,10 +11,7 @@ import syso.syso.constant.OrderStatus;
 import syso.syso.dto.OrderDto;
 import syso.syso.dto.OrderHisDto;
 import syso.syso.dto.OrderItemDto;
-import syso.syso.entity.Item;
-import syso.syso.entity.Member;
-import syso.syso.entity.Order;
-import syso.syso.entity.OrderItem;
+import syso.syso.entity.*;
 import syso.syso.handler.CustomException;
 import syso.syso.repository.ItemRepository;
 import syso.syso.repository.OrderItemRepository;
@@ -32,6 +29,40 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+
+    public void orderCart(List<CartItem> cartItems, Member member,int point){
+        Order order = new Order();
+        order.setMember(member);
+        order.setOrderStatus(OrderStatus.ORDER);
+        List<OrderItem> orderItems = new ArrayList<>();
+        for(CartItem cartItem : cartItems){
+            OrderItem orderItem = new OrderItem();
+
+            if(cartItem.getCnt() > cartItem.getItem().getStockNumber()){
+                throw new CustomException("개수가 초과했습니다.");
+            }
+            orderItem.setOrder(order);
+            orderItem.setItem(cartItem.getItem());
+            orderItem.setCount(cartItem.getCnt());
+            if(point>0){
+                if(point > cartItem.getCnt() * cartItem.getItem().getPrice()){
+                    throw new CustomException("포인트를 너무 많이 사용했습니다.");
+                    //throw new IllegalStateException("포인트를 너무 많이 사용했습니다.");
+                }
+                orderItem.setOrderPrice(orderItem.getCount() * cartItem.getItem().getPrice()-point);
+                orderItem.setPoint(point);
+                member.setPoint(member.getPoint()-point);
+            }else {
+                orderItem.setOrderPrice(orderItem.getCount() * cartItem.getItem().getPrice());
+            }
+            orderItems.add(orderItem);
+            orderItemRepository.save(orderItem);
+        }
+
+        order.setOrderItems(orderItems);
+
+        orderRepository.save(order);
+    }
 
     public Long order(Long itemId, OrderDto orderDto, Member member){
         Item findItem = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
@@ -69,7 +100,7 @@ public class OrderService {
             orderItem.setOrderPrice(orderDto.getCnt() * findItem.getPrice());
         }
         orderItemRepository.save(orderItem);
-
+        orderRepository.save(order);
         return order.getId();
     }
 
