@@ -23,7 +23,7 @@ public class ProfileService {
         UserDto userDto = new UserDto();
 
         userDto.setUserId(member.getUserId());
-        userDto.setNickName(member.getNicName());
+        userDto.setNicName(member.getNicName());
         userDto.setAddress(member.getAddress());
         userDto.setPoint(member.getPoint());
         userDto.setEmail(member.getEmail());
