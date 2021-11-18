@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>관리자-주문관리</title>
+    <link rel="stylesheet" href="../main/css/reset.css" />
+    <link rel="stylesheet" href="../main/css/common.css" />
+    <link rel="stylesheet" href="./css/admin_common.css" />
+    <link rel="stylesheet" href="./css/admin_page_order_manage.css" />
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./js/admin_common.js"></script>
+    <script src="../main/js/common.js"></script>
+    <script src="./js/admin_order_manage.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main">
+        <div id="content">
+          <div class="page_aticle aticle_type2">
+            <div id="snb" class="snb_my">
+              <h2 class="tit_snb">관리자 메뉴</h2>
+              <div class="inner_snb">
+                <ul class="list_menu">
+                  <li>
+                    <a href="#">상품 등록</a>
+                  </li>
+                  <li>
+                    <a href="#">상품 관리</a>
+                  </li>
+                  <li>
+                    <a href="#">주문 관리</a>
+                  </li>
+                  <li>
+                    <a href="#">후기 관리</a>
+                  </li>
+                  <li>
+                    <a href="#">1:1문의 관리</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div id="viewOrderList" class="page_section section_orderlist">
+              <div class="head_aticle">
+                <h2 class="tit">주문 관리</h2>
+              </div>
+              <div class="search_date">
+                <h3 class="screen_out">기간 선택</h3>
+                <a href="#none" class="btn_layer"> 전체기간 </a>
+                <ul class="layer_search" style="display: none">
+                  <li>
+                    <a href="#none" class="on">전체기간</a>
+                  </li>
+                  <li>
+                    <a href="#none" data-year="2021">2021 년</a>
+                  </li>
+                  <li>
+                    <a href="#none" data-year="2020">2020 년</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="order_state">
+                <h3 class="screen_out">상태 선택</h3>
+                <a href="#none" class="btn_layer"> 주문 상태 </a>
+                <ul class="layer_search" style="display: none">
+                  <li>
+                    <a href="#none" class="on">전체보기</a>
+                  </li>
+
+                  <li>
+                    <a href="#none">결제완료</a>
+                  </li>
+                  <li>
+                    <a href="#none">배송준비중</a>
+                  </li>
+                  <li>
+                    <a href="#none">배송완료</a>
+                  </li>
+                  <li>
+                    <a href="#none">취소요청</a>
+                  </li>
+                  <li>
+                    <a href="#none">취소완료</a>
+                  </li>
+                  <li>
+                    <a href="#none">교환요청</a>
+                  </li>
+                  <li>
+                    <a href="#none">교환완료</a>
+                  </li>
+                </ul>
+              </div>
+
+              <ul class="list_order">
+                <li>
+                  <div class="date">2020.12.17 (12시 29분)</div>
+                  <div class="order_goods">
+                    <div class="name">
+                      <a>[Dole] 후릇컵 3종 외 2건</a>
+                    </div>
+                    <div class="order_info">
+                      <div class="desc">
+                        <dl>
+                          <dt>주문번호</dt>
+                          <dd>1608175672040</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>결제금액</dt>
+                          <dd>13,560원</dd>
+                        </dl>
+                        <dl>
+                          <dt>주문방법</dt>
+                          <dd>무통장입금</dd>
+                        </dl>
+                      </div>
+
+                      <div class="desc" style="margin-left: 50px">
+                        <dl>
+                          <dt>주문자명</dt>
+                          <dd>박노원</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>결제상태</dt>
+                          <dd>결제완료</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>주문상태</dt>
+                          <dd class="status end">배송완료</dd>
+                        </dl>
+                      </div>
+                    </div>
+                    <div class="order_status">
+                      <span class="inner_status">
+                        <form action="#">
+                          <select
+                            name=""
+                            id="user_order_state"
+                            class="link ga_tracking_event"
+                          >
+                            <option value="">주문상태</option>
+                            <option value="배송준비중">배송준비중</option>
+                            <option value="배송완료">배송완료</option>
+                            <option value="취소완료">취소완료</option>
+                            <option value="교환완료">교환완료</option>
+                          </select>
+                          <button type="submit" class="link ga_tracking_event">
+                            적용
+                          </button>
+                        </form>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="date">[주문 시간 데이터 넣는 곳]</div>
+                  <div class="order_goods">
+                    <div class="name">
+                      <a>[주문한 상품명 데이터 넣는 곳]]</a>
+                    </div>
+                    <div class="order_info">
+                      <div class="desc">
+                        <dl>
+                          <dt>주문번호</dt>
+                          <dd>[주문번호 데이터 넣는 곳]</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>결제금액</dt>
+                          <dd>[결제금액 데이터 넣는 곳]</dd>
+                        </dl>
+                        <dl>
+                          <dt>주문방법</dt>
+                          <dd>[주문방법 데이터 넣는 곳]</dd>
+                        </dl>
+                      </div>
+
+                      <div class="desc" style="margin-left: 50px">
+                        <dl>
+                          <dt>주문자명</dt>
+                          <dd>[주문자명 데이터 넣는 곳]</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>결제상태</dt>
+                          <dd>[결제상태 데이터 넣는 곳]</dd>
+                        </dl>
+
+                        <dl>
+                          <dt>주문상태</dt>
+                          <dd class="status end">[주문상테 데이터 넣는 곳]</dd>
+                        </dl>
+                      </div>
+                    </div>
+                    <div class="order_status">
+                      <span class="inner_status">
+                        <form action="#">
+                          <select
+                            name=""
+                            id="user_order_state"
+                            class="link ga_tracking_event"
+                          >
+                            <option value="">주문상태</option>
+                            <option value="배송준비중">배송준비중</option>
+                            <option value="배송완료">배송완료</option>
+                            <option value="취소완료">취소완료</option>
+                            <option value="교환완료">교환완료</option>
+                          </select>
+                          <button type="submit" class="link ga_tracking_event">
+                            적용
+                          </button>
+                        </form>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="no_order_data">주문 내역이 없습니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

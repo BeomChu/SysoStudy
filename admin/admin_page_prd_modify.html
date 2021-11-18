@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">
+    <link rel="stylesheet" href="./css/admin_page_prd_upload.css">
+    <link rel="stylesheet" href="./css/admin_common.css">
+    <link rel="stylesheet" href="./css/admin_page_prd_modify.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./js/admin_common.js"></script>
+    <script src="./js/admin_prd_upload.js"></script>
+    <script>
+        function chkword_name(obj, maxByte){                      // 상품명 글자수 제한 두기
+            var strValue = obj.value;         //strValue : 글자수 값을 저장하기 위한 변수
+            var strLen = strValue.length;     //strLen : strValue 값의 길이
+            var totalByte = 0;                //글자수 총합
+            var len = 0;
+            var oneChar = "";
+            var str2= "";
+
+            for (var i = 0; i < strLen; i++){
+                oneChar = strValue.charAt(i);             //oneChar : 문자 값 리턴 받는 함수
+                if(escape(oneChar).length > 4) {          //한글이면 글자수 + 2
+                    totalByte += 2;
+                    $('.txt_count_name').text(totalByte);
+                } else {                                   //그외(숫자,영어)는 +1
+                    totalByte++;
+                    $('.txt_count_name').text(totalByte);
+                }
+
+                if(totalByte <= maxByte){
+                    len = i + 1;
+                }
+
+            }
+
+            if(totalByte > maxByte){                      // 맥스값보다 글자수가 초과되면 알림후에 뒷글자 자르기
+                alert(maxByte + "자를 초과 입력 할 수 없습니다.");      
+                str2 = strValue.substr(0, len);               
+                obj.value = str2;
+                chkword_name(obj, 4000);
+            }
+        }
+
+
+
+
+
+
+
+        function chkword_introduce(obj, maxByte){                //한줄소개 글자수 제한 두기
+            var strValue = obj.value;
+            var strLen = strValue.length;
+            var totalByte = 0;
+            var len = 0;
+            var oneChar = "";
+            var str2= "";
+
+            for (var i = 0; i < strLen; i++){
+                oneChar = strValue.charAt(i);
+                if(escape(oneChar).length > 4) {
+                    totalByte += 2;
+                    $('.txt_count_introduce').text(totalByte);
+                } else {
+                    totalByte++;
+                    $('.txt_count_introduce').text(totalByte);
+                }
+
+                if(totalByte <= maxByte){
+                    len = i + 1;
+                }
+
+            }
+
+            if(totalByte > maxByte){
+                alert(maxByte + "자를 초과 입력 할 수 없습니다.");
+                str2 = strValue.substr(0, len);
+                obj.value = str2;
+                chkword_introduce(obj, 4000);
+            }
+        }
+
+
+
+        function chkword_information(obj, maxByte){            //안내사항 글자수 제한두기
+            var strValue = obj.value;
+            var strLen = strValue.length;
+            var totalByte = 0;
+            var len = 0;
+            var oneChar = "";
+            var str2= "";
+
+            for (var i = 0; i < strLen; i++){
+                oneChar = strValue.charAt(i);
+                if(escape(oneChar).length > 4) {
+                    totalByte += 2;
+                    $('.txt_count_information').text(totalByte);
+                } else {
+                    totalByte++;
+                    $('.txt_count_information').text(totalByte);
+                }
+
+                if(totalByte <= maxByte){
+                    len = i + 1;
+                }
+
+            }
+
+            if(totalByte > maxByte){
+                alert(maxByte + "자를 초과 입력 할 수 없습니다.");
+                str2 = strValue.substr(0, len);
+                obj.value = str2;
+                chkword_information(obj, 4000);
+            }
+        }
+
+
+
+      
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="main">
+            <div id="content">
+                <div id="viewOrderList" class="page_section section_orderlist">
+                    
+            
+                    <div class="list_order">
+                      <form action="" class="">
+                        <div class="size">
+                          <div class="p_board">
+                            <table width="100%"> 
+                                <tbody>
+                                    <tr>
+                                        <th >상품명</th>
+                                        <td colspan="2"> 
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_name" class="i_text text1" onkeyup="chkword_name(this, 80)">
+                                                </span>
+                                            </div>
+                                            <span class="txtByte" title="현재글자수/최대글자수">
+                                              [
+                                              <strong class="txt_count_name">0</strong>
+                                               / 80 ]
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>한줄 소개</th>
+                                        <td colspan="2">
+                                            <div>
+                                                <span>
+                                                    <input type="text" class="i_text text2" name="product_introduce" onkeyup="chkword_introduce(this, 150)">
+                                                </span>
+                                                
+                                            </div>
+                                            <span class="txtByte" title="현재글자수/최대글자수">
+                                              [
+                                              <strong class="txt_count_introduce">0</strong>
+                                               / 150 ]
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>가격</th>
+                                        <td colspan="2">
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_price" class="i_text text3">
+                                                </span>
+                                            </div>
+                                            <span class="won">
+                                              원
+                                            </span>
+                                            <span class="won_type">
+                                              숫자만 입력해주세요 !
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>판매단위</th>
+                                        <td colspan="2">
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_unit" class="i_text text4">
+                                                </span>
+                                            </div>
+                                            <span class="input_ex">
+                                              예) 1봉, 1통, 1개
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>수량</th>
+                                        <td colspan="2">
+                                            <div>
+                                                <span>
+                                                    <input type="number" name="product_unit" class="i_text num1" placeholder="0">
+                                                </span>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>중량/용량</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_weight" class="i_text text5">
+                                                </span>
+                                            </div>
+                                            <span class="input_ex">
+                                              예) 60g , 1/4통
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송구분</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <select name="product_delivery" id="delivery_type">
+                                                        <option value="">-- 선택하세요 --</option>
+                                                        <optgroup label="배송구분">
+                                                            <option value="샛별 배송">
+                                                                샛별 배송
+                                                            </option>
+                                                            <option value="일반 배송">
+                                                                일반 배송
+                                                            </option>
+            
+                                                        </optgroup>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>원산지</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_origin" class="i_text text6">
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>포장타입</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <select name="product_packing" id="packing_type">
+                                                        <option value="">-- 선택하세요 --</option>
+                                                        <optgroup label="포장타입">
+                                                            <option value="냉장/종이포장">
+                                                                냉장/종이포장
+                                                            </option>
+                                                            <option value="상온/종이포장">
+                                                                상온/종이포장
+                                                            </option>
+            
+                                                        </optgroup>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>카테고리</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <select name="product_category" class="product_category">
+                                                        <option value="">------- 선택하세요 -------</option>
+                                                        <optgroup label="채소">
+                                                            <option value="A">-고구마·감자·당근</option>
+                                                            <option value="A">-시금치·쌈채소·나물</option>
+                                                            <option value="A">-브로콜리·파프리카·양배추</option>
+                                                            <option value="A">-양파·대파·마늘·배추</option>
+                                                            <option value="A">-오이·호박·고추</option>
+                                                            <option value="A">-냉동·이색·간편채소</option>
+                                                            <option value="A">-콩나물·버섯</option>
+                                                        </optgroup>
+                                                        <optgroup label="과일·견과·쌀">
+                                                            <option value="B">-제철과일</option>
+                                                            <option value="B">-국산과일</option>
+                                                            <option value="B">-수입과일</option>
+                                                            <option value="B">-간편과일</option>
+                                                            <option value="B">-냉동·건과일</option>
+                                                            <option value="B">-견과류</option>
+                                                            <option value="B">-쌀·잡곡</option>
+                                                        </optgroup>
+                                                        <optgroup label="수산·해산·건어물">
+                                                            <option value="C">-제철수산</option>
+                                                            <option value="C">-생선류</option>
+                                                            <option value="C">-굴비·반건류</option>
+                                                            <option value="C">-오징어·낙지·문어</option>
+                                                            <option value="C">-새우·게·랍스터</option>
+                                                            <option value="C">-해산물·조개류</option>
+                                                            <option value="C">-수산가공품</option>
+                                                            <option value="C">-김·미역·해조류</option>
+                                                            <option value="C">-건어물·다시팩</option>
+                                                        </optgroup>
+                                                        
+                        
+                                                      </select>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>유통기한</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_life" class="i_text text7">
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+            
+                                    <tr>
+                                        <th>안내사항</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <textarea class="i_text text8" name="product_information" id="" cols="30" rows="10" onkeyup="chkword_information(this, 550)"></textarea>
+                                                </span>
+                                            </div>
+                                            <span class="txtByte_big txtByte" title="현재글자수/최대글자수">
+                                              [
+                                              <strong class="txt_count_information">0</strong>
+                                               / 550 ]
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>이미지</th>
+                                        <td class="img_upload">
+                                            <div>
+                                                <span>대표 이미지</span>
+                                            
+                                                <div class="image_box">
+            
+                                                
+                                                    <div class="image_add">
+                                                        
+                                                        <input type="file" name="product_main_image" accept="image/*" id="image_input" onchange="set_image(event);">
+                                                        <button type="button" class="image_input_button"></button>
+                                                        <div id="image_container"></div>
+            
+                                                        <!--  이미지 업로드하면 미리보기 썸네일 나오기-->
+                                                        <script>  
+                                                            function set_image(){
+                                                                
+                                                                var reader = new FileReader();
+            
+                                                                reader.onload = function(event) {
+                                                                    var img = document.createElement("img");
+                                                                    img.setAttribute("src", event.target.result);
+                                                                    document.querySelector("div#image_container").appendChild(img);
+                                                                };
+            
+                                                                reader.readAsDataURL(event.target.files[0]);
+                                                            }
+            
+                                                        </script>
+            
+                                                        
+            
+                                                        <button type="button" class="re_upload">
+                                                            <span>
+                                                                수정
+                                                            </span></button>
+                                                        <button type="button" class="remove">
+                                                            <span>
+                                                                삭제
+                                                            </span>
+                                                        </button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+            
+                                            <div>
+                                                <div class="image_save">
+                                                    <span>서브 이미지</span>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="sub_image">
+                                                                <input type="file" name="product_sub_image" accept="image/*" id="sub_image_input" onchange="set_sub_image(event);">
+                                                                <button type="button" class="sub_image_input_button"></button>
+                                                                <div id="sub_image_container"></div>
+            
+                                                                <!--  이미지 업로드하면 미리보기 썸네일 나오기-->
+                                                                <script>  
+                                                                    function set_sub_image(){
+                                                                        
+                                                                        var reader = new FileReader();
+            
+                                                                        reader.onload = function(event) {
+                                                                            var img = document.createElement("img");
+                                                                            img.setAttribute("src", event.target.result);
+                                                                            document.querySelector("div#sub_image_container").appendChild(img);
+                                                                        };
+            
+                                                                        reader.readAsDataURL(event.target.files[0]);
+                                                                    }
+            
+                                                                </script>
+                                                            </div>
+                                                        </li>  
+                                                        
+                                                    </ul>
+                                                    <div class="sub_button">
+                                                        
+                                                        <button type="button" class="sub_re_upload">
+                                                            <span>
+                                                                수정
+                                                            </span>
+                                                        </button>
+                                                        <button type="button" class="sub_remove">
+                                                            <span>
+                                                                삭제
+                                                            </span>
+                                                        </button>
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+            
+                                            
+                                            
+            
+                                                    
+                                                    
+                                                
+                                                
+                                                
+                                            
+                                            
+                                        </td>
+            
+            
+            
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th>상품설명</th>
+                                        <td>
+                                            <div>
+                                                <span>
+                                                    <input type="text" name="product_description" class="i_text text8">
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+            
+                          <div id="product_submit" class="pd_submit">
+                            <button type="submit" >등록하기</button>
+                          </div>
+            
+                        </div>
+                    </form>
+            
+            
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

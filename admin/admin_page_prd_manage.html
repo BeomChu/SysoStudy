@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자-상품관리</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">
+    <link rel="stylesheet" href="./css/admin_common.css">
+    <link rel="stylesheet" href="./css/admin_page_prd_manage.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./js/admin_common.js"></script>
+    <script src="../main/js/common.js"></script>
+    <script src="./js/admin_prd_manage.js"></script>
+    
+    <script>
+        function popup(){
+            var url = "admin_page_prd_modify.html";        // var url = "product_modify/"+ id;
+            var name = "popup test";
+            var option = "width = 850, height = 850, top = 400, left = 400, location = no"
+            window.open(url, name, option);
+        }
+
+
+        function prd_delete(){
+
+            if (confirm("정말 삭제하시겠습니까??") == true){    
+                
+                return true;
+            
+            }else{   
+            
+                return false;
+            
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+
+        
+        
+
+
+        <div id="main">
+            <div id="content">
+                <div class="page_aticle aticle_type2">
+                    <div id="snb" class="snb_my">
+                      <h2 class="tit_snb">관리자 메뉴</h2>
+                      <div class="inner_snb">
+                        <ul class="list_menu">
+                          <li>
+                            <a href="#">상품 등록</a>
+                          </li>
+                          <li>
+                            <a href="#">상품 관리</a>
+                          </li>
+                          <li>
+                            <a href="#">주문 관리</a>
+                          </li>
+                          <li>
+                            <a href="#">후기 관리</a>
+                          </li>
+                          <li>
+                            <a href="#">1:1문의 관리</a>
+                          </li>
+          
+                        </ul>
+                      </div>
+                    </div>
+          
+                    <div id="viewOrderList" class="page_section section_destination">
+                      <div class="head_aticle">
+                        <h2 class="tit">
+                          상품 관리
+                        </h2>
+                      </div>
+
+
+                      <div id="tblParent" class="type_select">
+                          <form action="" method="POST" onsubmit="return prd_delete();">
+                              
+                              <table class="tbl tbl_type1">
+                                <thead>
+                                    <tr>
+                                        <th class="tit_select">번호</th>
+                                        <th class="tit_address">상품명</th>
+                                        <th class="tit_receive">가격</th>
+                                        <th class="tit_phone">남은 수량</th>
+                                        <th class="tit_delivery">배송유형</th>
+                                        <th class="tit_modify">수정</th>
+                                        <th class="tit_modify">삭제</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="addrList">
+                                    <tr>
+                                        <td class="select type_radio">
+                                            <label class="skin_checkbox">
+                                                <p>3</p>
+                                            </label>
+                                        </td>
+                                        <td class="address">
+                                            
+                                            <p class="addr">
+                                                감자 고구마 달걀 물 고구마 김치
+                                            </p>
+                                        </td>
+                                        <td class="name">
+                                            <span>1300원</span>
+                                        </td>
+                                        <td class="phone">
+                                            <span>999개</span>
+                                        </td>
+                                        <td>
+                                            <span class="delivery star">샛별 배송</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="ico modify" onclick="popup()" target = "_blank">수정하기</button>
+                                        </td>
+                                        <input type="hidden" value="" name="delete">
+                                        <td class="delete_position">
+                                            <button type="submit" name="delete" value="" class="product_delete">삭제하기</button>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <tr>
+                                        <td class="select type_radio">
+                                            <p>2</p>
+                                        </td>
+                                        <td class="address">
+                                            
+                                            <p class="addr">
+                                                빵 시루떡
+                                            </p>
+                                        </td>
+                                        <td class="name">
+                                            <span>300원</span>
+                                        </td>
+                                        <td class="phone">
+                                            <span>22개</span>
+                                        </td>
+                                        <td>
+                                            <span class="delivery star">일반 배송</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="ico modify" onclick="popup()" target = "_blank">수정하기</button>
+                                        </td>
+                                        <input type="hidden" value="" name="delete">
+                                        <td class="delete_position">
+                                            
+                                            <button type="button"  class="product_delete">삭제하기</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="select type_radio">
+                                            <p>1</p>
+                                        </td>
+                                        <td class="address">
+                                            
+                                            <p class="addr">
+                                                사과 오렌지 배
+                                            </p>
+                                        </td>
+                                        <td class="name">
+                                            <span>3000원</span>
+                                        </td>
+                                        <td class="phone">
+                                            <span>20000개</span>
+                                        </td>
+                                        <td>
+                                            <span class="delivery star">샛별 배송</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="ico modify" onclick="popup()" target = "_blank">수정하기</button>
+                                        </td>
+                                        <td class="delete_position">
+                                            <button type="button"  class="product_delete">삭제하기</button>
+                                        </td>
+                                    </tr>
+
+                                    
+                                    
+                                </tbody>
+                                
+                              </table>
+                     
+                            
+                        </form>
+                      </div>
+
+
+
+                      <div class="no_data">
+                          상품이 없습니다.
+                      </div>
+          
+                      
+                    </div>
+
+
+                    
+          
+                  </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</body>
+</html>
