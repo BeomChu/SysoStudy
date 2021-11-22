@@ -51,7 +51,6 @@ public class MemberController {
 
     @PostMapping("/emailCheck")
     public String check(String email){
-        System.out.println(email);
         String key = emailService.mailCheck(email);
         return key;
     }
