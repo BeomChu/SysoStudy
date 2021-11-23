@@ -23,6 +23,7 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailService emailService;
 
     public void 회원가입(SignupDto signupDto){
         checkDuplication(signupDto.getUserId());
@@ -60,14 +61,12 @@ public class MemberService implements UserDetailsService {
         }
 
         return new PrincipalDetails(findMember);
+    }
 
-        /*
-        return User.builder()
-                .username(findMember.getUserId())
-                .password(findMember.getPassword())
-                .roles(findMember.getRole().toString())
-                .build();
-
-         */
+    public void findPassword(String userId){
+        Member member = memberRepository.findByUserId(userId);
+        String newPassword = emailService.mailCheck(member.getEmail());
+        String nPassword = bCryptPasswordEncoder.encode(newPassword);
+        member.setPassword(nPassword);
     }
 }

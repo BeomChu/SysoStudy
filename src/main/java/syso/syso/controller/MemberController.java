@@ -1,6 +1,8 @@
 package syso.syso.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import syso.syso.auth.PrincipalDetails;
+import syso.syso.dto.CMRespDto;
 import syso.syso.dto.SignupDto;
 import syso.syso.service.EmailService;
 import syso.syso.service.MemberService;
@@ -76,5 +79,15 @@ public class MemberController {
         memberService.checkDuplication(userId);
 
         return "ok";
+    }
+
+    // id를 입력하면 처음에 회원가입할 때 적은 email로 임의의 값을 보낸다
+    //email로 받은 임의의 값을 이용하여 개인프로필에서 비밀번호를 수정할 수 있도록한다.
+    @PostMapping("/api/findpassword")
+    public ResponseEntity<?> findPassword(String userId){
+
+        memberService.findPassword(userId);
+
+        return new ResponseEntity<>(new CMRespDto<>(1,"비밀번호를 이메일로 보내드렸습니다.",null), HttpStatus.OK);
     }
 }
