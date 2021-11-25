@@ -12,7 +12,6 @@ import syso.syso.service.ProfileService;
 public class ProfileController {
 
     private final ProfileService profileService;
-    private final ProfileUpdate profileUpdate;
 
     @GetMapping("/profile/{id}")
     public UserDto profile(@PathVariable Long id){ //id를 사용하기위해서는 @PathVariable을 꼭 사용
@@ -22,6 +21,6 @@ public class ProfileController {
 
     @PutMapping("/profile/{id}/update")
     public void update(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails,UserDto userDto){
-        profileUpdate.회원정보수정(id,userDto);
+        profileService.회원정보수정(id,userDto);
     }
 }
