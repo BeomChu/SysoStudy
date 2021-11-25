@@ -2,13 +2,10 @@ package syso.syso.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import syso.syso.auth.PrincipalDetails;
 import syso.syso.dto.UserDto;
-import syso.syso.entity.Member;
 import syso.syso.service.ProfileService;
-import syso.syso.service.ProfileUpdate;
 
 @RestController
 @RequiredArgsConstructor //service 가져오기
