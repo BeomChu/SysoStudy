@@ -28,6 +28,6 @@ public class Comment {
     private Member member;
 
     @Column(nullable = false)
-    private String context;
+    private String comment;
 
 }

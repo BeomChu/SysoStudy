@@ -1,6 +1,8 @@
 package syso.syso.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -14,12 +16,14 @@ import syso.syso.service.ItemService;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
     @PostMapping("/newitem")
     public List<String> newItem(@Valid ItemDto itemDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails){
@@ -54,8 +58,15 @@ public class ItemController {
     public String updateItem(@PathVariable Long itemId, @Valid ItemDto itemDto, BindingResult bindingResult,@AuthenticationPrincipal PrincipalDetails principalDetails){
         itemService.상품수정(itemId,itemDto);
 
-
         return "실행됨";
+    }
+
+    @GetMapping("/findItem/{page}")
+    public Page<Item> findItemByPage(@PathVariable("page") int page){
+        PageRequest pageRequest=PageRequest.of(page,3);
+
+        return itemRepository.findAll(pageRequest);
 
     }
+
 }

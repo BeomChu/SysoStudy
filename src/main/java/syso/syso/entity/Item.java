@@ -1,5 +1,6 @@
 package syso.syso.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -31,6 +34,10 @@ public class Item {
     @ManyToOne
     @JoinColumn(name="member_item")
     private Member member;
+
+    @OneToMany
+    @JsonIgnoreProperties({"item"})
+    private List<Comment> commentList;
 
 //    @Column(nullable = false)
 //    private enum itemSellStatus;

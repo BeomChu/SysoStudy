@@ -1,17 +1,15 @@
 package syso.syso.dto;
 
 import lombok.Data;
+import syso.syso.entity.Member;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
 public class CommentDto {
 
-    @NotBlank
-    private String context;
+    private Member member;
 
-
-
-
+    private String comment;
 
 }
