@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Cart {
+public class Cart extends Timestamped{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
