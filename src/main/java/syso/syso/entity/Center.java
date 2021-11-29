@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Center {
+public class Center extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

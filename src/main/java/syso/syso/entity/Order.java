@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "orders")
-public class Order {
+public class Order extends Timestamped{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

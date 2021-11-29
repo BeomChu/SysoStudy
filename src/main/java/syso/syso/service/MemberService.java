@@ -28,14 +28,9 @@ public class MemberService implements UserDetailsService {
     public void 회원가입(SignupDto signupDto){
         checkDuplication(signupDto.getUserId());
 
-        Member member = new Member();
-        member.setUserId(signupDto.getUserId());
-
         String nPassword = bCryptPasswordEncoder.encode(signupDto.getPassword());
-        member.setPassword(nPassword);
-        member.setEmail(signupDto.getEmail());
-        member.setAddress(signupDto.getAddress());
-        member.setNicName(signupDto.getNicName());
+
+        Member member = Member.createMember(signupDto.getUserId(), nPassword, signupDto.getNicName(), signupDto.getAddress());
         member.setRole(Role.USER);
 
         memberRepository.save(member);
@@ -51,9 +46,6 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-
-        System.out.println("=======================");
-        System.out.println(userId);
         Member findMember = memberRepository.findByUserId(userId);
 
         if(findMember == null){

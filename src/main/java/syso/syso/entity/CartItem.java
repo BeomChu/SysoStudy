@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-public class CartItem {
+public class CartItem extends Timestamped{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

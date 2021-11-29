@@ -35,4 +35,14 @@ public class Member extends Timestamped{
     private Role role;
 
     private Grade grade;
+
+    public static Member createMember(String userId, String password, String nicName, String address){
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setPassword(password);
+        member.setAddress(address);
+        member.setNicName(nicName);
+
+        return member;
+    }
 }
