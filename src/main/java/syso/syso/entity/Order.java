@@ -25,4 +25,13 @@ public class Order extends Timestamped{
 
     @OneToMany(mappedBy = "order",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
+
+    public static Order createOrder(Member member, OrderStatus orderStatus, List<OrderItem> orderItems){
+        Order order = new Order();
+        order.setOrderItems(orderItems);
+        order.setOrderStatus(orderStatus);
+        order.setMember(member);
+
+        return order;
+    }
 }

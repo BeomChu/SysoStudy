@@ -27,4 +27,13 @@ public class OrderItem extends Timestamped{
     private int count;
 
     private int point;
+
+    public static OrderItem createOrderItem(Order order,Item item,int count){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrder(order);
+        orderItem.setCount(count);
+
+        return orderItem;
+    }
 }

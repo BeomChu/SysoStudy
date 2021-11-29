@@ -35,18 +35,14 @@ public class OrderService {
         order.setOrderStatus(OrderStatus.ORDER);
         List<OrderItem> orderItems = new ArrayList<>();
         for(CartItem cartItem : cartItems){
-            OrderItem orderItem = new OrderItem();
-
             if(cartItem.getCnt() > cartItem.getItem().getStockNumber()){
                 throw new CustomException("개수가 초과했습니다.");
             }
-            orderItem.setOrder(order);
-            orderItem.setItem(cartItem.getItem());
-            orderItem.setCount(cartItem.getCnt());
+            OrderItem orderItem = OrderItem.createOrderItem(order, cartItem.getItem(), cartItem.getCnt());
+
             if(point>0){
                 if(point > cartItem.getCnt() * cartItem.getItem().getPrice()){
                     throw new CustomException("포인트를 너무 많이 사용했습니다.");
-                    //throw new IllegalStateException("포인트를 너무 많이 사용했습니다.");
                 }
                 orderItem.setOrderPrice(orderItem.getCount() * cartItem.getItem().getPrice()-point);
                 orderItem.setPoint(point);
@@ -57,35 +53,24 @@ public class OrderService {
             orderItems.add(orderItem);
             orderItemRepository.save(orderItem);
         }
-
         order.setOrderItems(orderItems);
-
         orderRepository.save(order);
     }
 
     public Long order(Long itemId, OrderDto orderDto, Member member){
         Item findItem = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
-
         if(findItem.getStockNumber() < orderDto.getCnt()){
             throw new CustomException("개수가 초과했습니다.");
         }
 
-        Order order = new Order();
-        order.setMember(member);
-        order.setOrderStatus(OrderStatus.ORDER);
-
-        orderRepository.save(order);
+        List<OrderItem> orderItems = new ArrayList<>();
+        Order order = Order.createOrder(member, OrderStatus.ORDER, orderItems);
 
         findItem.setStockNumber(findItem.getStockNumber()-orderDto.getCnt());
-        OrderItem orderItem = new OrderItem();
-        orderItem.setItem(findItem);
-        orderItem.setOrder(order);
-        orderItem.setCount(orderDto.getCnt());
-
-        List<OrderItem> orderItems = new ArrayList<>();
+        OrderItem orderItem = OrderItem.createOrderItem(order, findItem, orderDto.getCnt());
         orderItems.add(orderItem);
 
-        order.setOrderItems(orderItems);
+        orderRepository.save(order);
 
         if(orderDto.getPoint()>0){
             if(orderDto.getPoint() > orderDto.getCnt() * findItem.getPrice()){
