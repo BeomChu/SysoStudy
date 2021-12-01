@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Item extends Timestamped{
 
 
 
@@ -32,7 +32,7 @@ public class Item {
     private int stockNumber;
 
     @ManyToOne
-    @JoinColumn(name="member_item")
+    @JoinColumn(name="memberId")
     private Member member;
 
     @OneToMany
@@ -41,4 +41,13 @@ public class Item {
 
 //    @Column(nullable = false)
 //    private enum itemSellStatus;
+
+    public static Item createItem(String itemName,int price, int stockNumber, Member member){
+        Item newItem=new Item();
+        newItem.setItemName(itemName);
+        newItem.setPrice(price);
+        newItem.setStockNumber(stockNumber);
+        newItem.setMember(member);
+        return newItem;
+    }
 }

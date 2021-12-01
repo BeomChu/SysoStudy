@@ -15,7 +15,7 @@ public class SignupDto {
     private String password;
 
     @NotBlank(message = "닉네임은 꼭 넣어주세요~~")
-    private String nicName;
+    private String nickName;
 
     @NotBlank(message = "이메일은 꼭 넣어주세요~~")
     private String email;

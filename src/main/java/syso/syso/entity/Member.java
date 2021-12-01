@@ -6,11 +6,12 @@ import syso.syso.constant.Grade;
 import syso.syso.constant.Role;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Member {
+public class Member extends Timestamped{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -35,4 +36,6 @@ public class Member {
     private Role role;
 
     private Grade grade;
+
+
 }

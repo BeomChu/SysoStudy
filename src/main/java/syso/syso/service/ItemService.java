@@ -13,6 +13,7 @@ import syso.syso.auth.PrincipalDetails;
 import syso.syso.dto.ItemDto;
 import syso.syso.entity.Item;
 import syso.syso.entity.Member;
+import syso.syso.handler.CustomException;
 import syso.syso.repository.ItemRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,36 +28,45 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
 
-    public Long 상품등록(ItemDto itemDto, Member member){
-        Item item= new Item();
-        item.setItemName(itemDto.getItemName());
-        item.setPrice(itemDto.getPrice());
-        item.setStockNumber(itemDto.getStockNumber());
-        item.setMember(member);
-
+    public Long createItem(ItemDto itemDto, Member member){
+        Item item= Item.createItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(),member);
         itemRepository.save(item);
 
         return item.getItemId();
     }
 
-    public String 상품조회(Long itemid){
-       Item findItem=itemRepository.findById(itemid).orElseThrow(EntityNotFoundException::new);
+    //판매자 이름,
+    public String findItem(Long itemId){
+       Item findItem=itemRepository.findById(itemId).orElseThrow(()->{
+           throw new CustomException("상품을 찾을 수 없습니다.");
+       });
        return findItem.getItemName();
     }
 
-    public Item 상품수정(Long itemId, ItemDto itemdto){
-        Item updateItem=itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+    public Long updateItem(Long itemId, ItemDto itemdto){
+        Item updateItem=itemRepository.findById(itemId).orElseThrow(()->{
+            throw new CustomException("상풍을 찾을 수 없습니다.");
+        });
         updateItem.setItemName(itemdto.getItemName());
         updateItem.setPrice(itemdto.getPrice());
         updateItem.setStockNumber(itemdto.getStockNumber());
 //        itemRepository.save(updateItem);
 
-        return updateItem;
+        return updateItem.getItemId();
         //상품상태
     }
 
-    public void 상품삭제(Long itemid){
-        itemRepository.delete(itemRepository.findById(itemid).orElseThrow(EntityNotFoundException::new));
+    public void deleteItemByItemId(Long itemId,Member member){
+
+        Item dItem = itemRepository.findById(itemId).orElseThrow(()->{
+            throw new CustomException("상품을 찾을 수 없습니다.");
+        });
+        if(dItem.getMember()==member){
+            itemRepository.delete(dItem);
+        }else{
+            throw new CustomException("판매자만 삭제할 수 있습니다.");
+        }
+
 
     }
 

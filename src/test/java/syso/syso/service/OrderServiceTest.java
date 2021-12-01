@@ -14,6 +14,7 @@ import syso.syso.entity.Item;
 import syso.syso.entity.Member;
 import syso.syso.entity.Order;
 import syso.syso.entity.OrderItem;
+import syso.syso.handler.CustomException;
 import syso.syso.repository.ItemRepository;
 import syso.syso.repository.OrderItemRepository;
 import syso.syso.repository.OrderRepository;
@@ -77,11 +78,11 @@ class OrderServiceTest {
         orderDto.setCnt(2);
         orderDto.setPoint(4000);
 
-        IllegalStateException illegalStateException = assertThrows(IllegalStateException.class, () -> {
+        CustomException customException = assertThrows(CustomException.class, () -> {
             orderService.order(item.getItemId(), orderDto, member);
         });
 
-        assertEquals(illegalStateException.getMessage(),"포인트를 너무 많이 사용했습니다.");
+        assertEquals(customException.getMessage(),"포인트를 너무 많이 사용했습니다.");
 
         // 위의 테스트는 2개만 사서 사용한 포인트가 구매할 가격보다 높은 경우
         // 아래 테스트는 10개를 사서 사용한 포인트가 구매할 가격보다 적은 경우

@@ -14,7 +14,7 @@ import java.util.IdentityHashMap;
 @Getter
 @Setter
 @Entity
-public class Comment {
+public class Comment extends Timestamped{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long commentId;
@@ -24,10 +24,19 @@ public class Comment {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name= "memberId")
     private Member member;
 
     @Column(nullable = false)
     private String comment;
+
+    public static Comment createComment(Item item,Member member,String comment){
+        Comment newComment=new Comment();
+        newComment.setItem(item);
+        newComment.setMember(member);
+        newComment.setComment(comment);
+
+        return newComment;
+    }
 
 }

@@ -13,6 +13,7 @@ import syso.syso.constant.Grade;
 import syso.syso.constant.Role;
 import syso.syso.dto.SignupDto;
 import syso.syso.entity.Member;
+import syso.syso.handler.CustomException;
 import syso.syso.repository.MemberRepository;
 
 @Service
@@ -22,6 +23,7 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailService emailService;
 
     public void 회원가입(SignupDto signupDto){
         checkDuplication(signupDto.getUserId());
@@ -33,7 +35,7 @@ public class MemberService implements UserDetailsService {
         member.setPassword(nPassword);
         member.setEmail(signupDto.getEmail());
         member.setAddress(signupDto.getAddress());
-        member.setNicName(signupDto.getNicName());
+        member.setNicName(signupDto.getNickName());
         member.setRole(Role.USER);
 
         memberRepository.save(member);
@@ -43,7 +45,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findByUserId(userId);
 
         if(member != null){
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+            throw new CustomException("이미 가입된 회원입니다.");
         }
     }
 
@@ -59,14 +61,12 @@ public class MemberService implements UserDetailsService {
         }
 
         return new PrincipalDetails(findMember);
+    }
 
-        /*
-        return User.builder()
-                .username(findMember.getUserId())
-                .password(findMember.getPassword())
-                .roles(findMember.getRole().toString())
-                .build();
-
-         */
+    public void findPassword(String userId){
+        Member member = memberRepository.findByUserId(userId);
+        String newPassword = emailService.mailCheck(member.getEmail());
+        String nPassword = bCryptPasswordEncoder.encode(newPassword);
+        member.setPassword(nPassword);
     }
 }
